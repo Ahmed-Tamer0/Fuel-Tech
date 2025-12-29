@@ -1,0 +1,367 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Default Light Mode */
+    --bg: #f5f6fa;
+    --primary: #ffffff;
+    --card: #e4e6eb;
+    --text: #050b18;
+    --text-muted: rgba(0, 0, 0, 0.65);
+    --blue: #1e90ff;
+    --accent: #2980b9;
+}
+
+/* Dark Mode Preference (auto-match OS or manual class) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #000000;
+        --primary: #0a0a0a;
+        --card: #151515;
+        --text: #ffffff;
+        --text-muted: rgba(255, 255, 255, 0.8);
+        --blue: #00cfff;
+        --accent: #1e90ff;
+    }
+}
+
+body.dark-mode {
+    --bg: #000000;
+    --primary: #0a0a0a;
+    --card: #151515;
+    --text: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.8);
+    --blue: #00cfff;
+    --accent: #1e90ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.4s, color 0.4s;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--blue);
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* Auth Container */
+.auth-container {
+    background: var(--primary);
+    /* Glassmorphism attempt if supported, else solid fallback */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    transform-style: preserve-3d;
+    animation: floatCard 4s ease-in-out infinite alternate;
+    margin-top: 60px;
+    /* Space for specific top elements if needed */
+}
+
+@keyframes floatCard {
+    0% {
+        transform: translateY(0) rotateX(0);
+    }
+
+    100% {
+        transform: translateY(-10px) rotateX(2deg);
+    }
+}
+
+.auth-header h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 150, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    /* slightly transparent */
+    color: var(--text);
+    font-size: 1rem;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue), var(--accent));
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+}
+
+.btn-auth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.4);
+}
+
+.auth-footer {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* 3D Background Elements (Decoration) */
+.bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.6;
+    animation: moveShape 10s infinite alternate;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--blue);
+    top: -50px;
+    left: -50px;
+}
+
+.shape-2 {
+    width: 250px;
+    height: 250px;
+    background: var(--accent);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+@keyframes moveShape {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(30px, 30px);
+    }
+}
+
+/* --- SPEEDOMETER WIDGET (Scaled down for Card) --- */
+.speedometer-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px auto;
+    /* Centered above title */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.speedometer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #1a2a3a 0%, #050b18 70%);
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 0 2px #222;
+    padding: 5px;
+}
+
+.speedometer svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.ring-bg {
+    fill: none;
+    stroke: #0f2238;
+    stroke-width: 20;
+}
+
+.ring-active {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 20;
+    stroke-dasharray: 620;
+    /* Scaled relative to path length */
+    stroke-dashoffset: 620;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 5px var(--blue));
+    animation: fillSpeed 2.5s ease-out forwards;
+}
+
+@keyframes fillSpeed {
+    to {
+        stroke-dashoffset: 150;
+    }
+}
+
+.needle-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-120deg);
+    transform-origin: center;
+    width: 0;
+    height: 0;
+    animation: needleAnimSmall 3s ease-in-out infinite alternate;
+    z-index: 5;
+}
+
+.needle {
+    position: absolute;
+    bottom: 0;
+    left: -2px;
+    width: 4px;
+    height: 40px;
+    /* Smaller needle */
+    background: linear-gradient(to top, var(--accent), #fff);
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.center-knob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: #222;
+    border: 2px solid #555;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+@keyframes needleAnimSmall {
+    0% {
+        transform: translate(-50%, -50%) rotate(-120deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(100deg);
+    }
+}
+
+/* --- VERIFICATION CODE INPUT --- */
+.code-inputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.code-inputs input {
+    width: 50px;
+    height: 60px;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid rgba(150, 150, 150, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    outline: none;
+    transition: all 0.3s;
+}
+
+.code-inputs input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+        align-items: flex-start;
+        /* Prevent cut-off on small screens if height is large */
+        padding-top: 40px;
+        overflow-y: auto;
+    }
+
+    .auth-container {
+        padding: 30px 20px;
+        animation: none;
+        /* Disable 3D float on mobile for performance/readability */
+        transform: none;
+        margin-top: 0;
+    }
+
+    .auth-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .code-inputs {
+        gap: 5px;
+    }
+
+    .code-inputs input {
+        width: 40px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .bg-shape {
+        filter: blur(60px);
+    }
+}
