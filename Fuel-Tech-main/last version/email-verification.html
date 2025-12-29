@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Tech - Verify Email</title>
+    <link rel="stylesheet" href="CSS/auth.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/global.css">
+</head>
+
+<body>
+
+    <div class="auth-toggles">
+        <button id="language-toggle" class="toggle-btn" title="Translate">
+            <i class="fa-solid fa-language"></i>
+        </button>
+        <button id="theme-toggle" class="toggle-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="auth-container">
+        <!-- Speedometer Widget -->
+        <div class="speedometer-wrapper">
+            <div class="speedometer">
+                <svg viewBox="0 0 300 300">
+                    <path class="ring-bg" d="M 60 240 A 100 100 0 1 1 240 240" />
+                    <path class="ring-active" d="M 60 240 A 100 100 0 1 1 240 240" />
+                </svg>
+                <div class="needle-wrapper">
+                    <div class="needle"></div>
+                </div>
+                <div class="center-knob"></div>
+            </div>
+        </div>
+
+        <div class="auth-header">
+            <h2 data-i18n="verify_email">Verify Your Email</h2>
+            <p data-i18n="enter_code">Enter the 6-digit code sent to your email</p>
+        </div>
+
+        <form action="#" method="POST">
+            <div class="code-inputs">
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+            </div>
+
+            <button type="submit" class="btn-auth" style="margin-top: 20px;" data-i18n="verify_code">Verify
+                Code</button>
+        </form>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
+            <span data-i18n="didnt_receive">Didn't receive the code?</span> <a href="#" style="color: var(--blue);"
+                data-i18n="resend">Resend</a>
+        </p>
+
+        <div class="auth-footer" style="margin-top: 20px;">
+            <a href="login.html"><i class="fas fa-arrow-left"></i> <span data-i18n="back_to_login">Back to
+                    Login</span></a>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to auto-focus next input
+        const inputs = document.querySelectorAll('.code-inputs input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
+    <script src="JS/translations.js"></script>
+    <script src="JS/main.js"></script>
+</body>
+
+</html>

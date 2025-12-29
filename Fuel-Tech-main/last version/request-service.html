@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Request | Fuel Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="CSS/service-request.css">
+    <link rel="stylesheet" href="CSS/global.css">
+</head>
+
+<body>
+    <div class="background-animation"></div>
+
+    <div class="main-container">
+        <header class="header">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> <span
+                    data-i18n="back">Back</span></a>
+            <div class="header-toggles">
+                <button id="language-toggle" class="toggle-btn" title="Translate">
+                    <i class="fa-solid fa-language"></i>
+                </button>
+                <button id="theme-toggle" class="toggle-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <img src="Assets/Images/logo_light.svg" alt="Fuel Tech Logo" class="logo">
+        </header>
+
+        <div class="wizard-container">
+            <!-- Speedometer / Spotmeter -->
+            <div class="speedometer-wrapper">
+                <div class="speedometer">
+                    <svg viewBox="0 0 350 350">
+                        <circle class="ring-bg" cx="175" cy="175" r="140" stroke-dasharray="440 880"
+                            stroke-dashoffset="-220"></circle>
+                        <circle id="speedRing" class="ring-active" cx="175" cy="175" r="140" stroke-dasharray="440 880"
+                            stroke-dashoffset="440"></circle>
+                    </svg>
+                    <div id="speedNeedleWrapper" class="needle-wrapper">
+                        <div class="needle"></div>
+                    </div>
+                    <div class="center-knob"></div>
+                    <div class="speed-info">
+                        <span id="speedValue" class="speed-value">0</span>
+                        <span class="speed-unit" data-i18n="progress_percent">Progress %</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="step-indicator" data-step="1">
+                    <span>1</span>
+                    <span data-i18n="info">Info</span>
+                </div>
+                <div class="line"></div>
+                <div class="step-indicator" data-step="2">
+                    <div class="circle">2</div>
+                    <span data-i18n="service">Service</span>
+                </div>
+                <div class="line"></div>
+                <div class="step-indicator" data-step="3">
+                    <div class="circle">3</div>
+                    <span data-i18n="details">Details</span>
+                </div>
+                <div class="line"></div>
+                <div class="step-indicator" data-step="4">
+                    <div class="circle">4</div>
+                    <span data-i18n="confirm">Confirm</span>
+                </div>
+            </div>
+
+            <form id="serviceRequestForm" action="" method="POST" enctype="multipart/form-data">
+
+                <!-- Step 1: Personal & Vehicle Info -->
+                <div class="form-step active" id="step-1">
+                    <h2 data-i18n="step1_title">Let's Get Started</h2>
+                    <p class="subtitle" data-i18n="step1_subtitle">Tell us about you and your vehicle.</p>
+
+                    <div class="input-group">
+                        <div class="input-box">
+                            <label for="name" data-i18n="your_name">Your Name</label>
+                            <input type="text" name="name" id="name" placeholder="John Doe" data-i18n="your_name"
+                                required>
+                            <span class="error-msg"></span>
+                        </div>
+                        <div class="input-box">
+                            <label for="phone" data-i18n="phone_number">Phone Number</label>
+                            <input type="tel" name="phone" id="phone" placeholder="01xxxxxxxxx"
+                                onkeypress="return /[0-9+]/.test(event.key)" data-i18n="phone_number" required>
+                            <span class="error-msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-box">
+                            <label for="car-type" data-i18n="car_type">Car Type</label>
+                            <input type="text" name="cartype" id="car-type" placeholder="e.g. Sedan, SUV"
+                                data-i18n="car_type" required>
+                            <span class="error-msg"></span>
+                        </div>
+                        <div class="input-box">
+                            <label for="car-model" data-i18n="car_model">Car Model</label>
+                            <input type="text" name="carmodel" id="car-model" placeholder="e.g. Toyota Corolla 2022"
+                                data-i18n="car_model" required>
+                            <span class="error-msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="btn-group single-right">
+                        <button type="button" class="btn-next"><span data-i18n="next_step">Next Step</span> <i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Service Selection -->
+                <div class="form-step" id="step-2">
+                    <h2 data-i18n="step2_title">Select Services</h2>
+                    <p class="subtitle" data-i18n="step2_subtitle">What does your car need today?</p>
+
+                    <div class="services-toggle-container">
+                        <div class="toggle-option active" data-target="regular-services" data-i18n="regular_services">
+                            Regular Services</div>
+                        <div class="toggle-option" data-target="issues-services" data-i18n="breakdown_issues">Breakdown
+                            / Issues</div>
+                    </div>
+
+                    <div id="regular-services" class="services-grid active">
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Fuel" id="fuel-check">
+                            <div class="card-content">
+                                <i class="fa-solid fa-gas-pump"></i>
+                                <span data-i18n="service_fuel">Fuel</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Car Wash">
+                            <div class="card-content">
+                                <i class="fa-solid fa-soap"></i>
+                                <span data-i18n="service_wash">Car Wash</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Tires">
+                            <div class="card-content">
+                                <i class="fa-solid fa-life-ring"></i>
+                                <span data-i18n="service_tires">Tires</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Rescue">
+                            <div class="card-content">
+                                <i class="fa-solid fa-truck-pickup"></i>
+                                <span data-i18n="service_rescue">Rescue</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Engine Oil">
+                            <div class="card-content">
+                                <i class="fa-solid fa-oil-can"></i>
+                                <span data-i18n="service_oil">Engine Oil</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Battery">
+                            <div class="card-content">
+                                <i class="fa-solid fa-car-battery"></i>
+                                <span data-i18n="service_battery">Battery</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Maintenance">
+                            <div class="card-content">
+                                <i class="fa-solid fa-wrench"></i>
+                                <span data-i18n="service_maintenance">Maintenance</span>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="checkbox" name="service[]" value="Engine Check">
+                            <div class="card-content">
+                                <i class="fa-solid fa-stethoscope"></i>
+                                <span data-i18n="service_check_engine">Check Engine</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Fuel Specific Options (Hidden by default, shown via JS if Fuel is checked) -->
+                    <div id="fuel-options-container" class="fuel-options hidden">
+                        <h4 data-i18n="select_fuel_type">Select Fuel Type</h4>
+                        <div class="radio-group">
+                            <label class="radio-card">
+                                <input type="radio" name="petrol" value="Gasoline 80" checked>
+                                <span data-i18n="gasoline_80">Gasoline 80</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="petrol" value="Gasoline 92">
+                                <span data-i18n="gasoline_92">Gasoline 92</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="petrol" value="Gasoline 95">
+                                <span data-i18n="gasoline_95">Gasoline 95</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="petrol" value="Natural Gas">
+                                <span data-i18n="natural_gas">Natural Gas</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="issues-services" class="services-grid">
+                        <!-- Problems checkboxes -->
+                        <!-- "Car won't start", "Battery issue", "Engine noise", "Overheating", etc -->
+                        <label class="service-card issue">
+                            <input type="checkbox" name="problems[]" value="Car won't start">
+                            <div class="card-content">
+                                <i class="fa-solid fa-power-off"></i>
+                                <span data-i18n="issue_wont_start">Won't Start</span>
+                            </div>
+                        </label>
+                        <label class="service-card issue">
+                            <input type="checkbox" name="problems[]" value="Battery issue">
+                            <div class="card-content">
+                                <i class="fa-solid fa-car-burst"></i>
+                                <span data-i18n="issue_battery">Battery</span>
+                            </div>
+                        </label>
+                        <label class="service-card issue">
+                            <input type="checkbox" name="problems[]" value="Overheating">
+                            <div class="card-content">
+                                <i class="fa-solid fa-temperature-arrow-up"></i>
+                                <span data-i18n="issue_overheating">Overheating</span>
+                            </div>
+                        </label>
+                        <label class="service-card issue">
+                            <input type="checkbox" name="problems[]" value="Flat Tire">
+                            <div class="card-content">
+                                <i class="fa-solid fa-compact-disc"></i>
+                                <span data-i18n="issue_flat_tire">Flat Tire</span>
+                            </div>
+                        </label>
+                        <label class="service-card issue">
+                            <input type="checkbox" name="problems[]" value="Brake Issue">
+                            <div class="card-content">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <span data-i18n="issue_brake">Brake Issue</span>
+                            </div>
+                        </label>
+                        <label class="service-card issue">
+                            <input type="checkbox" name="problems[]" value="Other">
+                            <div class="card-content">
+                                <i class="fa-solid fa-question"></i>
+                                <span data-i18n="issue_other">Other</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn-prev"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                        <button type="button" class="btn-next">Next Step <i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Explanation & Uploads -->
+                <div class="form-step" id="step-3">
+                    <h2 data-i18n="step3_title">More Details</h2>
+                    <p class="subtitle" data-i18n="step3_subtitle">Help us understand the situation better.</p>
+
+
+
+                    <div class="upload-split">
+                        <div class="upload-box">
+                            <label data-i18n="id_front">ID Front Face *</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" name="front_face" id="front_face" accept="image/*" required>
+                                <div class="upload-ui">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <span data-i18n="upload_front">Upload Front</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upload-box">
+                            <label>ID Back Face *</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" name="back_face" id="back_face" accept="image/*" required>
+                                <div class="upload-ui">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <span data-i18n="upload_back">Upload Back</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-box full-width-upload">
+                        <label data-i18n="breakdown_photo">Photo of the Breakdown (Optional)</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" name="issue_photo" id="issue_photo" accept="image/*">
+                            <div class="upload-ui">
+                                <i class="fa-solid fa-camera"></i>
+                                <span data-i18n="upload_car_photo">Upload Car Photo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn-prev"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                        <button type="button" class="btn-next">Next Step <i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Location & Submit -->
+                <div class="form-step" id="step-4">
+                    <h2 data-i18n="step4_title">Finalize & Submit</h2>
+                    <p class="subtitle" data-i18n="step4_subtitle">We need your location to reach you.</p>
+
+                    <div class="location-box">
+                        <div class="input-box full-width">
+                            <label data-i18n="current_location">Current Location</label>
+                            <div class="location-input-wrapper">
+                                <input type="text" readonly name="location" id="location"
+                                    placeholder="Location not detected yet" required>
+                                <button type="button" id="get-location-btn" class="loc-btn">
+                                    <i class="fa-solid fa-location-crosshairs"></i> <span
+                                        data-i18n="detect">Detect</span>
+                                </button>
+                            </div>
+                            <span class="error-msg" id="location-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="summary-preview">
+                        <!-- Dynamic summary could go here -->
+                        <p data-i18n="terms_agree">By clicking submit, you agree to our terms of service.</p>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn-prev"><i class="fa-solid fa-arrow-left"></i> <span
+                                data-i18n="prev_step">Previous</span></button>
+                        <button type="submit" class="submit-btn-final"><span data-i18n="submit_request">Submit
+                                Request</span> <i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="JS/translations.js"></script>
+    <script src="JS/main.js"></script>
+    <script src="JS/service-request.js"></script>
+</body>
+
+</html>
