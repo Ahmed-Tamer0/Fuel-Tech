@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Tech - Login</title>
+    <link rel="stylesheet" href="CSS/auth.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/global.css">
+</head>
+
+<body>
+
+    <div class="auth-toggles">
+        <button id="language-toggle" class="toggle-btn" title="Translate">
+            <i class="fa-solid fa-language"></i>
+        </button>
+        <button id="theme-toggle" class="toggle-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="auth-container">
+        <!-- Speedometer Widget -->
+        <div class="speedometer-wrapper">
+            <div class="speedometer">
+                <svg viewBox="0 0 300 300">
+                    <path class="ring-bg" d="M 60 240 A 100 100 0 1 1 240 240" />
+                    <path class="ring-active" d="M 60 240 A 100 100 0 1 1 240 240" />
+                </svg>
+                <div class="needle-wrapper">
+                    <div class="needle"></div>
+                </div>
+                <div class="center-knob"></div>
+            </div>
+        </div>
+
+        <div class="auth-header">
+            <h2 data-i18n="welcome_back">Welcome Back</h2>
+            <p data-i18n="login_subtitle">Enter your credentials to access your account</p>
+        </div>
+
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="email" data-i18n="email_address">Email Address</label>
+                <input type="email" id="email" class="form-input" placeholder="name@example.com"
+                    data-i18n="email_address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" data-i18n="password">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="••••••••" data-i18n="password"
+                    required>
+            </div>
+
+            <div style="text-align: right; margin-bottom: 20px;">
+                <a href="reset-password.html" style="font-size: 0.85rem;" data-i18n="forgot_password">Forgot
+                    Password?</a>
+            </div>
+
+            <button type="submit" class="btn-auth" data-i18n="sign_in">Sign In</button>
+        </form>
+
+        <div class="auth-footer">
+            <span data-i18n="no_account">Don't have an account?</span> <a href="signup.html" data-i18n="sign_up">Sign
+                Up</a>
+        </div>
+
+    </div>
+
+    <script src="JS/translations.js"></script>
+    <script src="JS/main.js"></script>
+</body>
+
+</html>
